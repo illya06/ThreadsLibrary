@@ -4,17 +4,9 @@
 #include <Windows.h>
 #include <iostream>
 
-#define MAX_THREADS 16
 
 using namespace std;
 
-//syncing globals
-CRITICAL_SECTION CriticalSection;
-HANDLE Mutex = NULL;
-
-//threads globals
-HANDLE threadList[MAX_THREADS];
-DWORD  threadIDList[MAX_THREADS];
 
 //variable for syncing
 int progres = 0;
