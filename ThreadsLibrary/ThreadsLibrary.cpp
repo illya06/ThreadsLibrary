@@ -1,8 +1,6 @@
 #include "pch.h"
 #include "ThreadsLibrary.h"
 
-#include <Windows.h>
-#include <iostream>
 
 
 using namespace std;
@@ -165,4 +163,25 @@ DWORD WINAPI idPrint(LPVOID data) {
     }
     printf("\n\n (\033[32m%d\033[0m) FINISHED!\n", GetCurrentThreadId());
     return 0;
+}
+
+void shortMain() {
+    int n = ammountOfThreads();
+
+    //initializing Critical section
+    if (!InitializeCriticalSectionAndSpinCount(&CriticalSection,
+        0x00000400))
+        return;
+    //initializing Mutex
+    Mutex = CreateMutex(NULL, FALSE, L"lock");
+
+    createThreads(n);
+
+     //HERE`LL BE TIME
+    WaitForMultipleObjects(n, threadList, TRUE, INFINITE);
+
+
+    DeleteCriticalSection(&CriticalSection);
+
+    closeHandles(n);
 }
